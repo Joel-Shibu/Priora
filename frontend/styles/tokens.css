@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+/* ════════════════════════════════════════════
+   Priora Design Tokens — v3 (Editorial Tech)
+   Dark mode first. oklch color space.
+   Smooth theme switching via CSS transitions.
+   ════════════════════════════════════════════ */
+
+:root {
+  /* ── Rich Ambient Palette (warm paper + white cards) ──
+       Background is a clearly warm paper tone (not white) so
+       pure white cards visibly pop against it, creating
+       immediate depth. Shadows use warm amber undertones
+       instead of gray for a tactile, premium feel.
+       Dark mode shifts to warm charcoal (not cool blue-gray)
+       for a cozy, reading-room atmosphere. */
+  --color-bg: oklch(0.915 0.018 70);
+  --color-surface: oklch(1 0 0);
+  --color-surface-alt: oklch(0.965 0.01 75);
+  --color-surface-hover: oklch(0.945 0.012 72);
+
+  --color-text-primary: oklch(0.14 0.015 50);
+  --color-text-secondary: oklch(0.38 0.02 55);
+  --color-text-tertiary: oklch(0.52 0.015 55);
+
+  --color-border: oklch(0.82 0.018 55);
+  --color-border-hover: oklch(0.72 0.025 55);
+
+  /* ── Warm Amber Accent (unchanged) ── */
+  --color-primary-50: oklch(0.97 0.02 85);
+  --color-primary-100: oklch(0.93 0.04 85);
+  --color-primary-200: oklch(0.88 0.06 85);
+  --color-primary-300: oklch(0.82 0.09 85);
+  --color-primary-400: oklch(0.76 0.12 85);
+  --color-primary-500: oklch(0.70 0.14 45);
+  --color-primary-600: oklch(0.62 0.14 45);
+  --color-primary-700: oklch(0.55 0.13 45);
+  --color-primary-800: oklch(0.48 0.12 45);
+  --color-primary-900: oklch(0.42 0.10 45);
+
+  /* ── Accent Colors ── */
+  --color-success: oklch(0.60 0.18 155);
+  --color-warning: oklch(0.65 0.18 75);
+  --color-error: oklch(0.58 0.20 25);
+  --color-info: oklch(0.55 0.12 220);
+
+  /* ── Priority Colors ── */
+  --priority-high: oklch(0.55 0.18 25);
+  --priority-high-bg: oklch(0.55 0.18 25 / 0.08);
+  --priority-high-border: oklch(0.55 0.18 25 / 0.2);
+  --priority-medium: oklch(0.63 0.16 75);
+  --priority-medium-bg: oklch(0.63 0.16 75 / 0.08);
+  --priority-medium-border: oklch(0.63 0.16 75 / 0.2);
+  --priority-low: oklch(0.50 0.03 60);
+  --priority-low-bg: oklch(0.50 0.03 60 / 0.06);
+  --priority-low-border: oklch(0.50 0.03 60 / 0.15);
+
+  /* ── Grain / Glow Opacities ── */
+  --grain-opacity: 0.04;
+  --glow-opacity: 0.08;
+
+  /* ── Typography ── */
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* ── Border Radius ── */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ── Warm-Tinted Shadow System ──
+       Shadows use warm amber/brown undertones (hue 50)
+       instead of neutral gray. On a warm paper background,
+       gray shadows look unnatural — warm shadows create
+       a cohesive, premium physical feel.
+       Higher elevation layers get more ambient shadow
+       and a sharper direct shadow. */
+  --shadow-sm:
+    0 1px 2px oklch(0.55 0.04 50 / 0.05),
+    0 1px 1px oklch(0.55 0.04 50 / 0.03);
+  --shadow-md:
+    0 2px 4px oklch(0.55 0.04 50 / 0.06),
+    0 4px 12px oklch(0.55 0.04 50 / 0.08);
+  --shadow-lg:
+    0 4px 8px oklch(0.55 0.04 50 / 0.07),
+    0 8px 24px oklch(0.55 0.04 50 / 0.10);
+  --shadow-xl:
+    0 8px 16px oklch(0.55 0.04 50 / 0.08),
+    0 16px 48px oklch(0.55 0.04 50 / 0.12);
+  --shadow-glow:
+    0 0 28px oklch(0.55 0.2 285 / 0.35);
+
+  /* ── Inner / Inset Shadows ──
+       Used for depressed elements like active buttons,
+       form inputs, and selected states. Warm-tinted. */
+  --shadow-inner-sm: inset 0 1.5px 3px oklch(0.55 0.03 55 / 0.12);
+  --shadow-inner-md: inset 0 2px 6px oklch(0.55 0.03 55 / 0.15);
+
+  /* ── Surface Elevations ──
+       Pre-composed shadow + border combinations
+       for consistent card/panel depth.
+       Uses warm-tinted shadows for cohesion. */
+  --elevation-flat:
+    0 0 0 1px var(--color-border);
+  --elevation-raised:
+    0 0 0 1px oklch(0.55 0.04 50 / 0.04),
+    0 1px 2px oklch(0.55 0.04 50 / 0.05),
+    0 4px 12px oklch(0.55 0.04 50 / 0.08);
+  --elevation-elevated:
+    0 0 0 1px oklch(0.55 0.04 50 / 0.05),
+    0 4px 8px oklch(0.55 0.04 50 / 0.06),
+    0 8px 24px oklch(0.55 0.04 50 / 0.11);
+  --elevation-popover:
+    0 0 0 1px oklch(0.55 0.04 50 / 0.06),
+    0 8px 16px oklch(0.55 0.04 50 / 0.08),
+    0 16px 48px oklch(0.55 0.04 50 / 0.14);
+
+  /* ── Transitions ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-theme: 350ms;
+}
+
+/* ── Warm Dark Theme ──
+     Dark mode shifts to warm charcoal (hue 50, not 260)
+     for a cozy, sophisticated reading-room atmosphere.
+     No cool blue-gray tones — this feels tactile and
+     premium rather than "dark mode" sterile.
+     Shadows are black-based (no warm tint needed on dark).
+     Elevations invert: dark surfaces recede, shadows
+     suggest light sources from above. */
+html.dark {
+  --color-bg: oklch(0.13 0.006 50);
+  --color-surface: oklch(0.19 0.01 50);
+  --color-surface-alt: oklch(0.23 0.012 50);
+  --color-surface-hover: oklch(0.26 0.014 50);
+
+  --color-text-primary: oklch(0.91 0.006 70);
+  --color-text-secondary: oklch(0.65 0.008 65);
+  --color-text-tertiary: oklch(0.48 0.01 60);
+
+  --color-border: oklch(0.28 0.012 50);
+  --color-border-hover: oklch(0.34 0.015 50);
+
+  --grain-opacity: 0.04;
+  --glow-opacity: 0.05;
+
+  --shadow-sm:
+    0 1px 2px oklch(0 0 0 / 0.20),
+    0 1px 1px oklch(0 0 0 / 0.12);
+  --shadow-md:
+    0 2px 4px oklch(0 0 0 / 0.22),
+    0 4px 12px oklch(0 0 0 / 0.24);
+  --shadow-lg:
+    0 4px 8px oklch(0 0 0 / 0.24),
+    0 8px 24px oklch(0 0 0 / 0.28);
+  --shadow-xl:
+    0 8px 16px oklch(0 0 0 / 0.26),
+    0 16px 48px oklch(0 0 0 / 0.32);
+  --shadow-glow:
+    0 0 28px oklch(0.55 0.2 285 / 0.2);
+
+  --shadow-inner-sm: inset 0 1.5px 3px oklch(0 0 0 / 0.25);
+  --shadow-inner-md: inset 0 2px 6px oklch(0 0 0 / 0.30);
+
+  --elevation-flat:
+    0 0 0 1px var(--color-border);
+  --elevation-raised:
+    0 0 0 1px oklch(1 1 1 / 0.04),
+    0 2px 4px oklch(0 0 0 / 0.22),
+    0 4px 12px oklch(0 0 0 / 0.24);
+  --elevation-elevated:
+    0 0 0 1px oklch(1 1 1 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.24),
+    0 8px 24px oklch(0 0 0 / 0.28);
+  --elevation-popover:
+    0 0 0 1px oklch(1 1 1 / 0.06),
+    0 8px 16px oklch(0 0 0 / 0.26),
+    0 16px 48px oklch(0 0 0 / 0.32);
+}
+
+
+
+/* ── Color Scheme (per mode) ── */
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+/* ── Smooth theme transition on color-changing properties ──
+     Only applies to elements that directly use theme CSS variables.
+     - `html` and `body` for root background/text transitions.
+     - `*:where(:not(.no-theme-transition))` for all descendant elements,
+       using :where() for zero-specificity so component transitions always win.
+   ── */
+html,
+body {
+  transition:
+    background-color var(--duration-theme) var(--ease-out-expo),
+    color var(--duration-theme) var(--ease-out-expo);
+}
+
+/* 
+   Zero-specificity selector (:where) ensures component-level transitions
+   (e.g., `.score-bar-fill { transition: width 0.8s }`) always take priority.
+   Only color/border/box-shadow properties are animated — never transform or layout.
+*/
+*:where(:not(.no-theme-transition)) {
+  transition:
+    background-color var(--duration-theme) var(--ease-out-expo),
+    border-color var(--duration-theme) var(--ease-out-expo),
+    color var(--duration-theme) var(--ease-out-expo),
+    box-shadow var(--duration-theme) var(--ease-out-expo);
+}
+
+/* ── Reduce motion: disable theme transition ── */
+@media (prefers-reduced-motion: reduce) {
+  *:where(:not(.no-theme-transition)) {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Global Styles ── */
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 45% at 50% -8%, oklch(0.98 0.006 80 / 0.5), transparent),
+    var(--color-bg);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ── Focus Ring ── */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--color-primary-500);
+  color: white;
+}
+
+/* ── Native Select Fix ── */
+select, input, textarea, button {
+  font-family: inherit;
+}
+
+select {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}

@@ -1,0 +1,41 @@
+# ── Frontend ─────────────────────────────────────────────────
+frontend/.nuxt/
+frontend/.output/
+frontend/dist/
+frontend/node_modules/
+frontend/.pnpm-store/
+
+# ── Backend (Rust) ───────────────────────────────────────────
+backend/target/
+backend/.env
+
+# ── Environment files (all levels) ───────────────────────────
+.env
+.env.local
+.env.production
+frontend/.env
+
+# ── IDE & OS ─────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ── Misc ─────────────────────────────────────────────────────
+coverage/
+.cache/
+.temp/
+.firecrawl/
+
+# ── Project docs / deployment notes ──────────────────────────
+docs/
+deploy.md
+DEPLOY.md
