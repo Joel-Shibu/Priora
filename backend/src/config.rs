@@ -19,9 +19,10 @@ impl Config {
                 .map_err(|_| "DATABASE_URL must be set".to_string())?,
             server_host: env::var("SERVER_HOST").unwrap_or_else(|_| "0.0.0.0".into()),
             server_port: env::var("SERVER_PORT")
+                .or_else(|_| env::var("PORT"))
                 .unwrap_or_else(|_| "3001".into())
                 .parse()
-                .map_err(|_| "SERVER_PORT must be a valid port number".to_string())?,
+                .map_err(|_| "SERVER_PORT or PORT must be a valid port number".to_string())?,
             cors_origin: env::var("CORS_ORIGIN").unwrap_or_else(|_| "*".into()),
             max_body_size: env::var("MAX_BODY_SIZE")
                 .unwrap_or_else(|_| "1048576".into()) // 1 MB default

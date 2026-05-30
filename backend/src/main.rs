@@ -3,7 +3,9 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use sqlx::migrate::Migrator;
 use sqlx::postgres::PgPoolOptions;
+use std::path::Path;
 use std::net::SocketAddr;
 use std::time::Duration;
 use tower::ServiceBuilder;
@@ -40,8 +42,11 @@ async fn main() {
         .await
         .expect("Failed to connect to database");
 
-    // Run migrations
-    sqlx::migrate!("./migrations")
+    // Run migrations (runtime path — avoids duplicate sqlx-core without TLS from migrate! macro)
+    let migrations_dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("migrations");
+    Migrator::new(migrations_dir)
+        .await
+        .expect("Failed to load migrations")
         .run(&pool)
         .await
         .expect("Failed to run database migrations");

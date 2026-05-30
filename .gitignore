@@ -35,7 +35,5 @@ coverage/
 .temp/
 .firecrawl/
 
-# ── Project docs / deployment notes ──────────────────────────
+# ── Project docs ─────────────────────────────────────────────
 docs/
-deploy.md
-DEPLOY.md
